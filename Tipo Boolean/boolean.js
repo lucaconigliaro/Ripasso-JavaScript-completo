@@ -1,36 +1,49 @@
-// true false
-// Valori falsy in JavaScript: false, 0, NaN, '', null, undefined
+// Il tipo booleano rappresenta due valori: true o false.
+// Viene principalmente usato per valutare condizioni e controllare il flusso logico nel codice.
 
-let condition = true;                // Dichiarazione e inizializzazione di una variabile booleana (true)
-const result = 4 > 5;                // result sarà false, perché la condizione 4 > 5 è falsa
-const result2 = 5 > 4;               // result2 sarà true, perché la condizione 5 > 4 è vera
-const negativeCondition = false;     // Dichiarazione di una variabile booleana inizializzata a false
+// Esempio di variabile booleana e controllo condizionale
+let isAdmin = true;
 
-console.log(typeof condition);        // Stampa il tipo della variabile, che all'inizio è 'boolean'
-console.log(typeof result);           // Stampa 'boolean', perché 4 > 5 restituisce false (di tipo boolean)
-console.log(typeof result2);          // Stampa 'boolean', perché 5 > 4 restituisce true (di tipo boolean)
-console.log(typeof negativeCondition);// Stampa 'boolean', perché negativeCondition è un boolean
-
-condition = undefined;                // Cambia il valore di 'condition' a undefined (uno dei valori falsy)
-
-console.log(typeof condition);        // Stampa 'undefined', infatti typeof undefined è 'undefined'
-
-// Un controllo condizionale: solo se condition è truthy entra nell'if
-if (condition) { 
-    console.log('The result is true'); // Questo codice NON verrà eseguito, perché 'undefined' è falsy
+if (isAdmin) {
+    console.log('Accesso consentito');
 } else {
-    console.log('The result is false'); // Questo verrà stampato, perché 'condition' vale undefined
+    console.log('Accesso negato');
 }
 
-// Conversione esplicita: qualsiasi stringa non vuota è truthy
-const castValue = Boolean('hello');    // 'hello' è una stringa non vuota, quindi Boolean('hello') restituisce true
-console.log(castValue);                // Stampa true
+// Alcuni valori valutati come falsy in JavaScript includono:
+// false, 0, NaN, '', null, undefined
+
+// Dichiarazioni di variabili booleane e valutazioni
+let condition = true;       // Valore booleano vero
+const result = 4 > 5;       // false perché 4 non è maggiore di 5
+const result2 = 5 > 4;      // true perché 5 è maggiore di 4
+const negativeCondition = false;
+
+console.log(typeof condition);         // 'boolean'
+console.log(typeof result);            // 'boolean'
+console.log(typeof result2);           // 'boolean'
+console.log(typeof negativeCondition); // 'boolean'
+
+// Cambia valore a 'undefined' (valore falsy)
+condition = undefined;
+console.log(typeof condition);         // 'undefined'
+
+// Controllo condizionale che valuta la 'truthiness' di condition
+if (condition) {
+    console.log('The result is true');  // Non verrà eseguito perché undefined è falsy
+} else {
+    console.log('The result is false'); // Questo verrà stampato
+}
+
+// Conversione esplicita a booleano con la funzione Boolean()
+const castValue = Boolean('hello');    // Stringa non vuota è truthy → true
+console.log(castValue);                 // true
 
 /*
 Note importanti:
-- In JavaScript solo sei valori sono considerati falsy: false, 0, NaN, '', null e undefined.
-- Tutti gli altri valori sono considered truthy e vengono valutati come true in un contesto booleano.
-- Il tipo booleano può essere esplicitamente ottenuto con la funzione Boolean().
-- Le condizioni if valutano la "truthiness" o "falsiness" del valore per decidere il flusso di esecuzione.
-- typeof restituisce il tipo primitivo di un valore (boolean, undefined, number, string, ecc.).
+- Esistono solo sei valori falsy in JavaScript: false, 0, NaN, '', null, undefined.
+- Qualunque altro valore è truthy e sarà valutato come true nelle condizioni booleane.
+- La funzione Boolean() consente di ottenere esplicitamente un valore booleano da qualsiasi dato.
+- Le condizioni if valutano automaticamente la "truthiness" o "falsiness" di un'espressione.
+- L'operatore typeof restituisce il tipo primitivo del valore (ad esempio 'boolean' o 'undefined').
 */
