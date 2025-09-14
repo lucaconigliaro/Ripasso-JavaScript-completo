@@ -1,109 +1,118 @@
-// Gli array sono strutture dati fondamentali che permettono di raccogliere elementi ordinati.
-// Ogni elemento è accessibile tramite un indice numerico a partire da 0.
-// JavaScript consente array dinamici, quindi possono crescere o ridursi in dimensione durante l'esecuzione.
+// Gli array sono strutture dati fondamentali per raccogliere elementi ordinati, accessibili tramite indice numerico (da 0).
+// JavaScript consente array dinamici: possono crescere/diminuire e contenere dati eterogenei.
 
-// Creazione di un array con i giorni della settimana
-const DAYS = [
+// Creazione e accesso
+const days = [
     'MONDAY',
     'TUESDAY',
     'WEDNESDAY',
     'THURSDAY',
     'FRIDAY',
-    'SATURDAY',
-    'SUNDAY',
+    'SUNDAY'
 ];
 
-console.log(DAYS[0]);      // Accesso al primo elemento: MONDAY
-console.log(DAYS.length);  // Lunghezza dell'array: 7
+console.log(days[0]);         // 'MONDAY'
+console.log(days.length);     // 6 (numero elementi)
 
-// Modifica di un elemento esistente
-DAYS[1] = 'TUESDAY MODIFIED';
+// Copia superficiale (duplicazione dell'array)
+const arrayCopy = days.slice();
+arrayCopy[1] = 'Martedì';     // Modifica non influenza l'originale
 
-// Aggiunta di un elemento in coda con push()
-DAYS.push('LUNES');
+// Trasformazione in stringa con join
+const giorni = days.join(";");  // "MONDAY;TUESDAY;WEDNESDAY;..."
 
-console.log(DAYS);        // Array aggiornato
+// toString(): converte tutto l'array in una stringa separata da virgole
+console.log(days.toString());     // "MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SUNDAY"
+// a differenza di join(), non accetta parametri per cambiare il separatore (sempre ",")
+// Utile per ottenere rapidamente una rappresentazione testuale dell'intero array.
 
-// Rimozione di elementi
+// push(): aggiunge alla fine | pop(): rimuove dalla fine e restituisce
+days.push('LUNEDI');
+let last = days.pop();
 
-// pop(): rimuove l'ultimo elemento e lo ritorna
-let removed = DAYS.pop();
-console.log(removed);     // LUNES
-console.log(DAYS.length); // 7 (dopo la rimozione)
+// unshift(): aggiunge all'inizio | shift(): rimuove dal principio
+days.unshift('DOMENICA');
+let first = days.shift();
 
-// shift(): rimuove il primo elemento e lo ritorna
-removed = DAYS.shift();
-console.log(removed);     // MONDAY
-console.log(DAYS.length); // 6
+// splice(): inserisce/rimuove/modifica elementi all'indice scelto
+days.splice(5, 0, 'SATURDAY'); // Inserisce 'SATURDAY' in posizione 5 senza rimuovere
+// days.splice(indice, nElimina, el1, el2...) // Sostituisce/rimuove/aggiunge
 
-// Metodi utili per manipolare gli array
-
-let fruits = ['Apple', 'Banana', 'Orange'];
-
-// Push - aggiunge elementi in fondo
-fruits.push('Kiwi');
-
-// Pop - rimuove e restituisce l'ultimo elemento
-const lastFruit = fruits.pop();
-
-// Shift - rimuove e restituisce il primo elemento
-const firstFruit = fruits.shift();
-
-// Unshift - aggiunge elementi in testa
-fruits.unshift('Strawberry');
-
-console.log(fruits);
-
-// Ricerca degli elementi
-
-// indexOf - restituisce l'indice del primo elemento trovato o -1
-console.log(fruits.indexOf('Banana'));     // 1
-console.log(fruits.indexOf('Pineapple'));  // -1
-
-// includes - verifica se un elemento esiste nell'array
-console.log(fruits.includes('Orange'));   // true
-console.log(fruits.includes('Papaya'));   // false
-
-// Join - trasforma l'array in una stringa separando gli elementi
-console.log(fruits.join(', '));   // "Strawberry, Banana, Orange"
-
-// Slice - estrae una porzione dell'array senza modificarlo
-const sliceFruits = fruits.slice(1, 3);
-console.log(sliceFruits);         // ['Banana', 'Orange']
-
-// Splice - modifica l'array rimuovendo o inserendo elementi
-// Qui rimuovo 1 elemento dall'indice 1 e inserisco "Peach" e "Pineapple"
-fruits.splice(1, 1, 'Peach', 'Pineapple');
-console.log(fruits);
-
-// Iterazione sugli array
-
-// forEach - esegue una funzione per ogni elemento dell'array, senza modificarlo
-fruits.forEach((fruit, index) => {
-    console.log(`${index}: ${fruit}`);
-});
-
-// map - crea un nuovo array applicando una funzione a ogni elemento
-const upperFruits = fruits.map(fruit => fruit.toUpperCase());
-console.log(upperFruits);
-
-// filter - crea un nuovo array con elementi che soddisfano una condizione
-const fruitsWithA = fruits.filter(fruit => fruit.toLowerCase().includes('a'));
-console.log(fruitsWithA);
-
-// find - trova il primo elemento che soddisfa una condizione
-const firstWithA = fruits.find(fruit => fruit.toLowerCase().includes('a'));
-console.log(firstWithA);
-
-// Iterazione con entries - ottieni indice e valore
-for (let [index, fruit] of fruits.entries()) {
-    console.log(`${index} - ${fruit}`);
+// indexOf(): cerca la posizione di un elemento, -1 se non trovato
+let indexGiovedi = days.indexOf('GIOVEDI');
+if (indexGiovedi !== -1) {
+    days.splice(indexGiovedi, 1); // Rimuove 'GIOVEDI'
 }
+
+// includes(): true/false se un elemento esiste
+console.log(days.includes('MONDAY')); // true
+
+// slice(start,end): restituisce porzione dell'array senza modificarlo
+let middleDays = days.slice(1, 4); // Da posizione 1 a 3 incluse
+
+// concat(): ritorna un nuovo array
+let allDays = days.concat(arrayCopy);
+
+// forEach(): itera e esegue una funzione su ogni elemento
+days.forEach((day, idx) => console.log(idx + ': ' + day));
+
+// map(): crea un nuovo array applicando la funzione a ogni elemento
+let lowerDays = days.map(day => day.toLowerCase());
+
+// filter(): nuovo array con solo elementi che soddisfano la condizione
+let names = ['Anna', 'Bruno', 'Luca'];
+let namesWithA = names.filter(name => name.includes('a'));
+
+// find(): restituisce il primo elemento che verifica la condizione
+let primoLungo = names.find(name => name.length > 4);
+
+// some()/every(): verifica se almeno uno/tutti soddisfano la condizione
+let almenoUno = names.some(name => name.startsWith('A')); // true
+let tuttiHannoA = names.every(name => name.includes('a')); // false
+
+// reduce(): esegue calcolo cumulativo partendo da un valore iniziale
+let numbers = [2, 4, 6];
+let somma = numbers.reduce((acc, curr) => acc + curr, 0);
+// Per prodotto: numbers.reduce((acc, curr) => acc * curr, 1)
+
+// Destructuring degli array
+let [a, b] = [1, 2];
+let arr = [4, 6, 8, 9];
+function summ(...args) {
+    return args.reduce((a, b) => a + b);
+}
+console.log(summ(...arr));
+
+// Destructuring oggetti
+let obj = { name: 'John', lastName: 'Doe' };
+let { name: Nome, lastName: cognome } = obj;
+({ name: nome, lastName: cognome } = { name: 'Hidran', lastName: 'Arias' });
+console.log(nome, cognome);
+
+// Arrow function e this: in arrow, this è quello del contesto esterno
+let arr2 = [2, 5, 7, 9, 6, 8, 13, 15];
+let arrEven = arr2.filter(num => num % 2 === 0);  // [2,6,8]
+console.log(arrEven);
+console.log(arrEven.map(num => num * 2));         // [4,12,16]
+console.log(arrEven.reduce((a, b) => a * b));     // prodotto
+
+// Oggetti complessi e filter/map su array di oggetti
+let cities = [
+    { name: 'TORINO', reg: 'PIE' },
+    { name: 'ASTI', reg: 'PIE' },
+    { name: 'MILANO', reg: 'LOM' },
+    { name: 'COMO', reg: 'LOM' },
+];
+let lombardia = cities.filter(c => c.reg == 'LOM').map(c => c.name);
+console.log(lombardia); // ['MILANO', 'COMO']
 
 /*
 Note importanti:
-- Gli array JavaScript sono flessibili e consentono la manipolazione dinamica dei dati.
-- I metodi push, pop, shift, unshift, splice, slice sono essenziali per la gestione efficiente degli array.
-- Gli operatori funzionali come map, filter, find permettono di scrivere codice conciso e leggibile.
-- È fondamentale ricordare che l'indicizzazione degli array parte da zero.
+- Gli array sono strutture dati flessibili a dimensione variabile e dati eterogenei.
+- Metodi principali: push/pop, shift/unshift, join, splice, slice, toString, concat, forEach, map, filter, find, some, every, reduce.
+- toString() converte l'intero array in una stringa separata da virgole senza modificarlo.
+- indexOf e includes permettono ricerca di un valore.
+- Destructuring semplifica estrazione di valori da array/oggetti.
+- Gli array sono indicizzati da zero.
+- I metodi funzionali permettono manipolazioni concise e leggibili.
 */
